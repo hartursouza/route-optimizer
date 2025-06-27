@@ -18,8 +18,8 @@ fetch("/route", {
   .then((res) => res.json())
   .then((data) => {
     const coords = data.features[0].geometry.coordinates.map((coord) => [
-      coord[1],
-      coord[0],
+      coord[1], // lat
+      coord[0], // lon
     ]);
     L.polyline(coords, { color: "blue" }).addTo(map);
     map.fitBounds(L.polyline(coords).getBounds());
