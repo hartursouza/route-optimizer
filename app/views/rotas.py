@@ -1,16 +1,15 @@
-# app/routes.py
-from flask import Blueprint, render_template, request, jsonify, current_app
+from flask import Blueprint, request, jsonify, render_template, current_app
 import openrouteservice
 
-bp = Blueprint('main', __name__)
+rotas_bp = Blueprint('rotas', __name__, url_prefix='/rota')
 
-@bp.route('/')
-def index():
-    return render_template('index.html')
+@rotas_bp.route('/nova')
+def form_create():
+    return render_template('routes/form-create-route.html')
 
-@bp.route('/route', methods=['POST'])
-def route():
-    data = request.json
+@rotas_bp.route('/gerar', methods=['POST'])
+def generate_route():
+    data = request.get_json()
     coordenadas = data.get('coordenadas')
 
     if not coordenadas:
@@ -26,7 +25,3 @@ def route():
         return jsonify(rota)
     except Exception as e:
         return jsonify({'erro': str(e)}), 500
-
-@bp.route('/route/create_route')
-def form_route():
-    return render_template('routes/form-create-route.html')
