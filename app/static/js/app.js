@@ -10,7 +10,7 @@ const coordenadas = [
   [-38.51, -3.735],
 ];
 
-fetch("/rota/gerar", {
+fetch("/route/create", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ coordenadas }),

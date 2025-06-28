@@ -1,13 +1,13 @@
 from flask import Blueprint, request, jsonify, render_template, current_app
 import openrouteservice
 
-rotas_bp = Blueprint('rotas', __name__, url_prefix='/rota')
+route_bp = Blueprint('route', __name__, url_prefix='/route')
 
-@rotas_bp.route('/nova')
+@route_bp.route('/new')
 def form_create():
-    return render_template('routes/form-create-route.html')
+    return render_template('route/form-create-route.html')
 
-@rotas_bp.route('/gerar', methods=['POST'])
+@route_bp.route('/create', methods=['POST'])
 def generate_route():
     data = request.get_json()
     coordenadas = data.get('coordenadas')
@@ -17,11 +17,11 @@ def generate_route():
 
     try:
         client = openrouteservice.Client(key=current_app.config['ORS_API_KEY'])
-        rota = client.directions(
+        route = client.directions(
             coordinates=coordenadas,
             profile='driving-car',
             format='geojson'
         )
-        return jsonify(rota)
+        return jsonify(route)
     except Exception as e:
         return jsonify({'erro': str(e)}), 500
