@@ -1,13 +1,31 @@
-<form id="rota-form">
-  <input
-    type="text"
-    name="endereco"
-    placeholder="Endereço de partida"
-    required
-  />
-  <div id="destinos">
-    <input type="text" name="endereco" placeholder="Destino 1" required />
-  </div>
-  <button type="button" id="adicionar">+ Adicionar destino</button>
-  <button type="submit">Gerar Rota</button>
-</form>
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gerar Rota Otimizada</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+      #map {
+        height: 400px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Nova Rota</h1>
+    <form id="route-form">
+      <div id="addresses">
+        <input type="text" name="address" placeholder="Endereço 1" required />
+      </div>
+      <button type="button" onclick="addField()">
+        Adicionar outro endereço
+      </button>
+      <button type="submit">Gerar Rota</button>
+    </form>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  </body>
+</html>

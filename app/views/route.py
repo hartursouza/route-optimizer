@@ -3,25 +3,46 @@ import openrouteservice
 
 route_bp = Blueprint('route', __name__, url_prefix='/route')
 
-@route_bp.route('/new')
-def form_create():
+@route_bp.route('/create')
+def create_route_form():
     return render_template('route/form-create-route.html')
 
-@route_bp.route('/create', methods=['POST'])
-def generate_route():
+@route_bp.route('/optimized', methods=['POST'])
+def generate_optimized_route():
     data = request.get_json()
-    coordenadas = data.get('coordenadas')
+    enderecos = data.get('enderecos', [])
 
-    if not coordenadas:
-        return jsonify({'erro': 'Coordenadas não informadas'}), 400
+    if len(enderecos) < 2:
+        return jsonify({'erro': 'Informe pelo menos dois endereços.'}), 400
 
     try:
         client = openrouteservice.Client(key=current_app.config['ORS_API_KEY'])
-        route = client.directions(
+        coordenadas = []
+        
+        for endereco in enderecos:
+            resultado = client.pelias_search(text=endereco)
+            features = resultado.get('features', [])
+            if not features:
+                return jsonify({'erro': f"Endereço não encontrado: {endereco}"}), 400
+
+            coords = features[0]['geometry']['coordinates']  # [lon, lat]
+            coordenadas.append(coords)
+
+        # Gerar rota otimizada
+        rota = client.directions(
             coordinates=coordenadas,
             profile='driving-car',
-            format='geojson'
+            format='geojson',
+            optimize_waypoints=True
         )
-        return jsonify(route)
+
+        resposta = {
+            'features': rota.get('features', []),
+            'waypoints': coordenadas 
+        }
+
+        return jsonify(resposta)
+
     except Exception as e:
+        print(f"[ERRO] {e}")
         return jsonify({'erro': str(e)}), 500
