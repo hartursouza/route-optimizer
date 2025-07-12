@@ -4,6 +4,8 @@ if (form) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    document.getElementById("loading-message").style.display = "block";
+
     const inputs = document.querySelectorAll("input[name='address']");
     const enderecos = Array.from(inputs).map((i) => i.value);
 
