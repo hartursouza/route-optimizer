@@ -3,7 +3,12 @@
   <h1>Nova Rota</h1>
   <form id="route-form">
     <div id="addresses">
-      <input type="text" name="address" placeholder="Endereço 1" required />
+      <input
+        type="text"
+        name="address"
+        placeholder="Primeiro endereço"
+        required
+      />
     </div>
     <button type="button" class="btn btn-secondary mt-2" onclick="addField()">
       Adicionar outro endereço
@@ -17,5 +22,10 @@
   >
     Aguarde... gerando rota otimizada.
   </div>
+  <div
+    id="error-message"
+    class="alert alert-danger m-2"
+    style="display: none"
+  ></div>
 </div>
 {% endblock %}

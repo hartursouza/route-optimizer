@@ -30,5 +30,4 @@ def generate_optimized_route():
         return jsonify({'erro': str(e)}), 400
     
     except Exception as e:
-        print(f"[ERRO] {e}")
-        return jsonify({'erro': 'Erro interno no servidor'}), 500
+        return jsonify({'erro': 'Erro interno no servidor, tente novamente.'}), 500

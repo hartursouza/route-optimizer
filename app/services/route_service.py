@@ -1,3 +1,6 @@
+from openrouteservice.exceptions import ApiError
+from flask import jsonify
+
 class Geocodificador:
     def __init__(self, client):
         self.client = client
@@ -18,13 +21,19 @@ class Roteirizador:
         self.client = client
 
     def gerar_rota_otimizada(self, coordenadas):
-        rota = self.client.directions(
-            coordinates=coordenadas,
-            profile='driving-car',
-            format='geojson',
-            optimize_waypoints=True
-        )
+        try:
+            rota = self.client.directions(
+                coordinates=coordenadas,
+                profile='driving-car',
+                format='geojson',
+                optimize_waypoints=True
+            )
+        except ApiError as e:
+            return jsonify({'erro': 'Não foi possível traçar a rota. Verifique os endereços.'}), 400
+        
         return {
             'features': rota.get('features', []),
-            'waypoints': coordenadas
+            'waypoints': coordenadas,
+            'distancia_km': round(rota['features'][0]['properties']['summary']['distance'] / 1000, 2),
+            'duracao_min': round(rota['features'][0]['properties']['summary']['duration'] / 60, 1)
         }

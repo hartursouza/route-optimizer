@@ -45,7 +45,6 @@ body {
 #map {
   height: 100%;
   width: 100%;
-  margin-left: 75px;
 }
 
 input {
@@ -54,6 +53,21 @@ input {
   margin-bottom: 1rem;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
+}
+
+#info-box {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2001;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  min-width: 200px;
+  display: none; /* começa escondido */
+  font-size: 0.95rem;
 }
 
 /* RESPONSIVO */
@@ -84,7 +98,6 @@ input {
   }
 
   #map {
-    margin-left: 0;
-    margin-bottom: 70px; /* espaço para o bottom bar */
+    bottom: 70px; /* espaço para o bottom bar */
   }
 }

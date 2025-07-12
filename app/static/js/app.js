@@ -4,6 +4,10 @@ if (form) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    const errorDiv = document.getElementById("error-message");
+    errorDiv.style.display = "none";
+    errorDiv.textContent = "";
+
     document.getElementById("loading-message").style.display = "block";
 
     const inputs = document.querySelectorAll("input[name='address']");
@@ -16,8 +20,11 @@ if (form) {
     });
 
     const data = await res.json();
+
     if (data.erro) {
-      alert("Erro: " + data.erro);
+      errorDiv.textContent = data.erro;
+      errorDiv.style.display = "block";
+      document.getElementById("loading-message").style.display = "none";
       return;
     }
 
@@ -48,12 +55,20 @@ if (mapContainer) {
 
   L.control
     .zoom({
-      position: "topright",
+      position: "bottomright",
     })
     .addTo(map);
 
   if (rotaSalva) {
     const data = JSON.parse(rotaSalva);
+
+    document.getElementById("info-box").style.display = "block";
+    document.getElementById("info-distancia").textContent = `Distância: ${(
+      data.features[0].properties.summary.distance / 1000
+    ).toFixed(2)} km`;
+    document.getElementById("info-duracao").textContent = `Duração: ${(
+      data.features[0].properties.summary.duration / 60
+    ).toFixed(1)} min`;
 
     const coords = data.features[0].geometry.coordinates.map((c) => [
       c[1],
