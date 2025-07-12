@@ -1,8 +1,90 @@
 html,
-body,
-#map {
+body {
   height: 100%;
   margin: 0;
-  padding: 0;
+}
+
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 75px;
+  height: 100vh;
+  background-color: #f8f9fa;
+  border-right: 1px solid #ddd;
+  padding: 1rem 0.5rem;
+  overflow-y: auto;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav {
+  flex-direction: column;
+}
+
+.nav-item {
+  margin: 0.5rem 0;
+}
+
+.nav-link {
+  color: #333;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-link:hover {
+  background-color: #e9ecef;
+  color: #007bff;
+  transition: background-color 0.3s ease;
+}
+
+#map {
+  height: 100%;
   width: 100%;
+  margin-left: 75px;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  #sidebar {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    border-right: none;
+    padding: 0.5rem;
+  }
+
+  .nav {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-item {
+    margin: 0;
+  }
+
+  #map {
+    margin-left: 0;
+    margin-bottom: 70px; /* espaço para o bottom bar */
+  }
 }

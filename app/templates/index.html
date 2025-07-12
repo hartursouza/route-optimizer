@@ -1,18 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Mapa com Rota</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}"
-    />
-  </head>
-  <body>
-    <div id="map"></div>
+{% extends "base.html" %} {% block content %}
 
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-  </body>
-</html>
+<div id="map"></div>
+
+{% endblock %}
