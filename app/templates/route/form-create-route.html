@@ -2,6 +2,15 @@
 <div class="container mt-4">
   <h1>Nova Rota</h1>
   <form id="route-form">
+    <div class="form-group">
+      <label for="profile">Modo de deslocamento:</label>
+      <select id="profile" name="profile" class="form-control" required>
+        <option value="driving-car">Carro</option>
+        <option value="driving-hgv">Caminhão</option>
+        <option value="foot-walking">A pé</option>
+        <option value="cycling-regular">Bicicleta</option>
+      </select>
+    </div>
     <div id="addresses">
       <input
         type="text"
@@ -17,14 +26,14 @@
   </form>
   <div
     id="loading-message"
-    class="alert alert-success m-2"
+    class="alert alert-success mt-2"
     style="display: none"
   >
     Aguarde... gerando rota otimizada.
   </div>
   <div
     id="error-message"
-    class="alert alert-danger m-2"
+    class="alert alert-danger mt-2"
     style="display: none"
   ></div>
 </div>

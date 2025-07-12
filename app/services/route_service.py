@@ -20,11 +20,11 @@ class Roteirizador:
     def __init__(self, client):
         self.client = client
 
-    def gerar_rota_otimizada(self, coordenadas):
+    def gerar_rota_otimizada(self, coordenadas, profile = 'driving-car'):
         try:
             rota = self.client.directions(
                 coordinates=coordenadas,
-                profile='driving-car',
+                profile= profile,
                 format='geojson',
                 optimize_waypoints=True
             )
