@@ -11,4 +11,5 @@ services:
         sync: false
     migrations:
       run: |
-        flask db upgrade
+        flask db upgradeflask db upgrade
+
