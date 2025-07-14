@@ -128,3 +128,34 @@ if (mapContainer) {
     sessionStorage.removeItem("rota");
   }
 }
+
+function deletarRota(id) {
+  if (confirm("Deseja realmente excluir esta rota?")) {
+    fetch(`/route/delete/${id}`, {
+      method: "POST",
+    }).then((res) => location.reload());
+  }
+}
+
+async function visualizarRota(enderecos, profile) {
+  const res = await fetch("/route/optimized", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ enderecos, profile }),
+  });
+
+  const data = await res.json();
+
+  if (data.erro) {
+    alert("Erro ao gerar a rota: " + data.erro);
+    return;
+  }
+
+  data.modo = profile;
+  data.distancia_km = data.features[0].properties.summary.distance / 1000;
+  data.duracao_min = data.features[0].properties.summary.duration / 60;
+  data.enderecos = enderecos;
+
+  sessionStorage.setItem("rota", JSON.stringify(data));
+  window.location.href = "/";
+}

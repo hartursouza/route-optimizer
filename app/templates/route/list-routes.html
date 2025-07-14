@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-4">
+  <h2>Rotas Cadastradas</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Modo</th>
+        <th>Distância</th>
+        <th>Duração</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for rota in rotas %}
+      <tr>
+        <td>{{ rota.id }}</td>
+        <td>{{ rota.modo }}</td>
+        <td>{{ rota.distancia_total }} km</td>
+        <td>{{ rota.duracao_total }} min</td>
+        <td>
+          <button
+            class="btn btn-sm btn-info"
+            onclick='visualizarRota({{ rota.enderecos|tojson }}, "{{ rota.modo }}")'
+          >
+            Ver
+          </button>
+          <button
+            class="btn btn-sm btn-danger"
+            onclick="deletarRota({{ rota.id }})"
+          >
+            Excluir
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

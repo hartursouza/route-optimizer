@@ -40,10 +40,10 @@ def salvar_rota():
     data = request.get_json()
     try:
         nova_rota = Route(
-            modo=data['modo'],
-            distancia_total=data['distancia_total'],
-            duracao_total=data['duracao_total'],
-            enderecos=data['enderecos']
+        modo=data['modo'],
+        distancia_total=round(data['distancia_total'], 1),
+        duracao_total=round(data['duracao_total'], 1),
+        enderecos=data['enderecos']
         )
         db.session.add(nova_rota)
         db.session.commit()
@@ -51,3 +51,15 @@ def salvar_rota():
     except Exception as e:
         print(f"[ERRO AO SALVAR]: {e}")
         return jsonify({'sucesso': False, 'erro': str(e)}), 500
+    
+@route_bp.route('/list')
+def listar_rotas():
+    rotas = Route.query.order_by(Route.criada_em.desc()).all()
+    return render_template('route/list-routes.html', rotas=rotas)
+
+@route_bp.route('/delete/<int:id>', methods=['POST'])
+def deletar_rota(id):
+    rota = Route.query.get_or_404(id)
+    db.session.delete(rota)
+    db.session.commit()
+    return jsonify({'sucesso': True})
