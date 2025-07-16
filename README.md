@@ -1,7 +1,5 @@
 # Sistema de Otimização de Rotas
 
-![Badge](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
-
 Projeto desenvolvido como parte da disciplina **Programação Avançada** da **UFRN - Departamento de Engenharia de Comunicações**, com o objetivo de criar um sistema web que auxilie usuários na geração de rotas otimizadas com foco em economia, eficiência e facilidade de uso.
 
 ---
